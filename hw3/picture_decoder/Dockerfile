@@ -13,7 +13,7 @@ RUN apt update
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt install -y python-opencv python-pip vim-tiny mosquitto-clients libopencv-dev
-RUN pip install paho-mqtt
+RUN pip install paho-mqtt ibm-cos-sdk
 
 COPY . /src
 WORKDIR /src
@@ -21,3 +21,4 @@ WORKDIR /src
 CMD [ "python", app/app.py ] 
 
 EXPOSE 1883
+
