@@ -1,13 +1,21 @@
 import numpy as np
 import cv2
-import resource.mqtt
+from mqtt import *
+import logging
 
-face_cascade = cv2.CascadeClassifier('/src/app/utils/haarcascade_frontalface_default.xml')
-cap = cv2.VideoCapture(1)
+camera_logger = logging.getLogger("CAMERA_LOGGER")
+camera_logger.warning("Setting Variables")
 
+face_cascade = cv2.CascadeClassifier('/src/haarcascade_frontalface_default.xml')
+
+cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
 
 i = 0
+
+camera_logger.warning("Detecting Pics")
+
+local_client.loop_start()
 
 while 1:
     ret, img = cap.read()
@@ -30,11 +38,18 @@ while 1:
         #    test.write(msg)
         #    i += 1
 
-        client.publish(LOCAL_MQTT_TOPIC, payload=msg, qos=0, retain=False)
+        local_client.publish(LOCAL_MQTT_TOPIC, payload=msg, qos=0, retain=False)
 
     k = cv2.waitKey(30) & 0xff
     if k == 27:
         break
 
+# Pause time
+time.sleep(1) 
+        
+# Stop and clean-up
+local_client.loop_stop()
+local_client.disconnect()
+
 cap.release()
-cv2.destroyAllWindows()
+cv.destroyAllWindows()

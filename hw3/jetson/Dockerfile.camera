@@ -1,0 +1,24 @@
+FROM ubuntu
+MAINTAINER Tennison Yu <tennisonyu@berkeley.edu>
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt update
+
+RUN apt install -y \
+    python-opencv \
+    cheese \
+    python-pip \
+    vim-tiny \
+    mosquitto \
+    mosquitto-clients \
+    libopencv-dev
+
+
+RUN pip install paho-mqtt
+
+COPY app /src
+WORKDIR /src
+
+CMD [ "python", "index.py" ] 
+

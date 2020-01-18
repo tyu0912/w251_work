@@ -1,2 +1,0 @@
-pencv-python==4.1.2.30
-paho-mqtt==1.5.0
