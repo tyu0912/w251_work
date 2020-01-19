@@ -32,7 +32,7 @@ while 1:
         cv2.imshow("frame", img)
         
         rc, png = cv2.imencode(".png", img)
-        msg = png.tobytes()
+        msg = bytearray(png)
 
         #with open('/src/app/pic_dump/{i}.txt'.format(i=i), 'wb') as test:
         #    test.write(msg)
