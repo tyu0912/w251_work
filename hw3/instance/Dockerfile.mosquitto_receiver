@@ -1,0 +1,12 @@
+FROM alpine
+
+ENV PATH /usr/sbin:$PATH
+
+RUN apk update
+RUN apk upgrade
+RUN apk --no-cache add bash mosquitto mosquitto-clients
+
+COPY docker_configs/receiver.conf /
+
+EXPOSE 1883
+
