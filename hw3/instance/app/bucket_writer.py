@@ -155,6 +155,17 @@ def upload_large_file(bucket_name, item_name, file_path):
     finally:
         transfer_mgr.shutdown()
 
+
+def upload_object(bucket_name, data, key, cos_cli):
+    s3 = ibm_boto3.resource('s3')
+    bucket = s3.Bucket(bucket_name)
+    
+    try:
+        bucket.upload_fileobj(data, key, extraArgs=cos_cli)
+    except:
+        print("Failed Upload")
+
+
 # Constants for IBM COS values
 COS_ENDPOINT = "https://s3.us-south.cloud-object-storage.appdomain.cloud" # example: https://s3.us-south.cloud-object-storage.appdomain.cloud
 COS_API_KEY_ID = "gh-OlIntP0PgkscJ6e49VpGUvm3GlxeWsxQUiZiyyyOd" # example: xxxd12V2QHXbjaM99G9tWyYDgF_0gYdlQ8aWALIQxXx4

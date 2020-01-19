@@ -14,10 +14,12 @@ RUN apt install -y \
     mosquitto-clients \
     libopencv-dev
 
-RUN pip install pano-mqtt
+RUN pip install paho-mqtt 
+RUN pip install Pillow 
+RUN pip install ibm-cos-sdk 
 
 COPY app /src
 WORKDIR /src
 
-CMD [ "python", "index.py"
+CMD [ "python", "index.py" ]
 
