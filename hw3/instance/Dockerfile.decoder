@@ -19,6 +19,7 @@ RUN pip install Pillow
 RUN pip install ibm-cos-sdk 
 
 COPY app /src
+RUN mkdir -p /src/picture_dump
 WORKDIR /src
 
 CMD [ "python", "index.py" ]
