@@ -4,7 +4,9 @@ The task of this homework is to send pictures from the Jetson TX2 to an Object S
 
 <img src="layout.png" width="75%" height="75%">
 
-<h3>The repo here for this task is organized by the environment its run in: jetson vs instance. All necessary files to run this are located in each folder and detailed below.</h3>
+<h3>The repo here for this task is organized by the platform it's run on: jetson or instance. All necessary files to run this are located in each folder and detailed below. Below is also a summary diagram</h3>
+
+<img src="my_process.png" width="75%" height="75%">
 
 ## 1. Jetson
 
