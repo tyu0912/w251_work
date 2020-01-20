@@ -19,3 +19,4 @@ On the Instance side, there are two main parts:
 
 With a similar file structure and steps as the Jetson side, a network is firstly set up. Then the receiver which is a mosquitto broker responsible for catching all the messages from the forwarder above is deployed. The decoder is registered to the receiver broker service and therefore will get the messages as well. It then takes the messages, decodes them and saves them to an Object Store Bucket on the IBM Cloud.
 
+To view some of the pics taken, please go to http://tennisonyu-w251-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/
