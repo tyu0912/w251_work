@@ -42,6 +42,8 @@ http://tennisonyu-w251-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/0002
 
 ## Interesting Considerations
 
+__**Note 1**__
+
 OpenCV and/or my camera do not seem to integrate all that well. Although extremely rare, note both of the below which seem to originate from imencode and libpng which is a dependency. Using the try-except method to continue the capture seems to have no detrimental effects so it is unclear what is causing these. 
 
 Error 1:
@@ -53,4 +55,7 @@ libpng warning: Image height is zero in IHDR
 libpng error: Invalid IHDR data
 OpenCV Error: Assertion failed (code) in imencode, file /build/opencv-XDqSFW/opencv-3.2.0+dfsg/modules/imgcodecs/src/loadsave.cpp, line 798
 
+__**Note 2**__
+
+For some strange reason, indenting got messed up in instance/app/index.py when committing changes. This should be resolved now in commit c7deba5d15efbe9a084a3d135170674742350f0c but it is unclear why this happened. Would need to address if happens again. 
 
