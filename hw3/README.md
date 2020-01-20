@@ -15,13 +15,13 @@ On the Jetson side, there are three main parts:
 2. Broker (run_broker.sh)
 3. Forwarder (run_forwarder.sh)
 
-Each part has its own bash script to run that will trigger its respective Dockerfile, config files, and app components. This was done to make each part more unit testable. To get everything up and running, first use the `run_network.sh` script which sets up a user-defined bridge network for the whole thing. The main parts can be brought up in any order after that. 
+Each part has its own bash script to run that will trigger its respective Dockerfile, config files, and app components. This was done to make each part more unit testable. To get everything up and running, first use the `run_network.sh` script which sets up a user-defined bridge network for this respective section/platform. The main parts can be brought up in any order after that. 
 
-Per the diagram, the pictures from the camera are captured by OpenCV which will then pass on the message to a Mosquitto broker. This broker then passes the message to the forwarder through a bridge. The forwarder then launches it to the instance for further processing. Line by line code details can be found via the comments of each file.
+Per the diagrams above, the pictures from the camera are captured by OpenCV which will then pass on the message to a Mosquitto broker. This broker then passes the message to the forwarder through a bridge. The forwarder then launches it to the instance for further processing. Line by line code details can be found via the comments of each file.
 
 ### Explanation of MQTT and Topic
 
-The topic throughout this project is: face_cutter/camera-broker1. Only one topic was used since the data flows through only one pathway. The QoS that was used was 0 between the forwarder and the receiver below. This is because although higher QoS means more pictures are likeley to get through, it is also slower because of the extra steps in verification. The pictures sent here are considered non-sensitive and we are able to capture many at a time. Therefore this was opted as the preferable option. **Note:** In each of the bash files, there are more explanations on the configs used for mosquitto.
+The topic throughout this project is: face_cutter/camera-broker1. Only one topic was used since the data flows through only one pathway. The QoS that was used was 0 between the forwarder and the receiver below. This is because although higher QoS means more pictures are likeley to get through, it is also slower because of the extra steps in verification between the sender and the receiver. The pictures sent here are considered non-sensitive and we are able to capture many at a time. Therefore 0 was opted as the preferable option. **Note:** In each of the bash files, there are more explanations on the configs used for mosquitto.
 
 ## 2. Instance
 
@@ -29,9 +29,9 @@ On the Instance side, there are two main parts:
 1. Receiver (run_receiver.sh)
 2. Decoder (run_decoder.sh)
 
-With a similar file structure and steps as the Jetson side, a network is firstly set up. The other bash scripts can be run in any order. 
+With a similar file structure and run steps as the Jetson side, a network is firstly set up. The other bash scripts can be run in any order. 
 
-In terms of how it works, the receiver which is a mosquitto broker responsible for catching all the messages from the forwarder above is deployed. The decoder is registered to the receiver broker service and therefore will get the messages as well. It then takes the messages, decodes them and saves them to an Object Store Bucket on the IBM Cloud.
+In terms of how it works, the receiver which is a mosquitto broker responsible for catching all the messages from the forwarder above is deployed. The decoder is registered to the receiver broker service and therefore will get the messages as well. It then takes the messages, decodes them and saves them to an Object Store Bucket on the IBM Cloud using the IBM SDK (https://ibm.github.io/ibm-cos-sdk-python/).
 
 ## Result
 
