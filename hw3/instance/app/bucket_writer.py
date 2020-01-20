@@ -1,3 +1,6 @@
+# This file was pulled from IBM Cloud Website: 
+# https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-sdk-gs&programming_language=go
+
 import os
 import uuid
 import ibm_boto3

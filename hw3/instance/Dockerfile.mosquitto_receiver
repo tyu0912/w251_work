@@ -1,14 +1,18 @@
+# Pulling OS
 FROM alpine
 MAINTAINER Tennison Yu <tennisonyu@berkeley.edu>
 
-
+# Adding executable to path
 ENV PATH /usr/sbin:$PATH
 
+# Installing software
 RUN apk update
 RUN apk upgrade
 RUN apk --no-cache add bash mosquitto mosquitto-clients
 
+# Copying config file inside container. Note the file is intentionally empty in this case.
 COPY docker_configs/receiver.conf /
 
+# Expose the mosquitto port
 EXPOSE 1883
 
