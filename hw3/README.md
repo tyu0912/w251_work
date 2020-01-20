@@ -7,9 +7,9 @@ The repo here for this task is organized by the environment its run in: jetson v
 ## 1. Jetson
 
 On the Jetson side, there are three main parts:
-1. Camera
-2. Broker
-3. Forwarder
+1. Camera (run_camera.sh)
+2. Broker (run_broker.sh)
+3. Forwarder (run_forwarder.sh)
 
 Each part has its own bash script to run that will trigger its respective Dockerfile, config files, and app components. This was done to make each part more unit testable. To get everything up and running, first use the `run_network.sh` script which sets up a user-defined bridge network for the whole thing. The main parts can be brought up in any order after that. 
 
@@ -22,8 +22,8 @@ The topic throughout this project is: face_cutter/camera-broker1. Only one topic
 ## 2. Instance
 
 On the Instance side, there are two main parts:
-1. Receiver 
-2. Decoder
+1. Receiver (run_receiver.sh)
+2. Decoder (run_decoder.sh)
 
 With a similar file structure and steps as the Jetson side, a network is firstly set up. The other bash scripts can be run in any order. 
 
