@@ -1,6 +1,8 @@
 # HW3: Internet of Things
 
-The task of this homework is to send pictures from the Jetson TX2 to an Object Store on IBM Cloud. The main technologies and software that were recommended and used in this project include a webcam, OpenCV, Docker, Alpine, Ubuntu, and Mosquitto. A diagram of the pipeline can be found at https://github.com/MIDS-scaling-up/v2/tree/master/week03/hw. 
+The task of this homework is to send pictures from the Jetson TX2 to an Object Store on IBM Cloud. The main technologies and software that were recommended and used in this project include a webcam, OpenCV, Docker, Alpine, Ubuntu, and Mosquitto. I followed the template below which is also found here: https://github.com/MIDS-scaling-up/v2/tree/master/week03/hw
+
+<img source="layout.png">
 
 The repo here for this task is organized by the environment its run in: jetson vs instance. All necessary files to run this are located in each folder and detailed below.
 
