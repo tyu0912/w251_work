@@ -1,8 +1,10 @@
+# Pulling unbuntu OS and turning interactions off
 FROM ubuntu
 MAINTAINER Tennison Yu <tennisonyu@berkeley.edu>
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Installing software
 RUN apt update
 
 RUN apt install -y \
@@ -17,8 +19,10 @@ RUN apt install -y \
 
 RUN pip install paho-mqtt
 
+# Moving the app into its own folder to be run
 COPY app /src
 WORKDIR /src
 
+# Running the app
 CMD [ "python", "index.py" ] 
 

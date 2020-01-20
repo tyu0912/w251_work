@@ -1,5 +1,8 @@
+# Destroy previous builds
 docker kill camera
 docker rm camera
+
+# Build new containers of the camera service
 docker build -t camera -f Dockerfile.camera .
 
 xhost +

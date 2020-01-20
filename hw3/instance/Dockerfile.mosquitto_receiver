@@ -1,4 +1,6 @@
 FROM alpine
+MAINTAINER Tennison Yu <tennisonyu@berkeley.edu>
+
 
 ENV PATH /usr/sbin:$PATH
 

@@ -1,11 +1,17 @@
+# Pulling lightweight OS
 FROM alpine
+MAINTAINER Tennison Yu <tennisonyu@berkeley.edu>
 
+
+# Adding executable to path
 ENV PATH /usr/sbin:$PATH
 
+# Installing software
 RUN apk update
 RUN apk upgrade
 RUN apk --no-cache add bash mosquitto mosquitto-clients
 
+# Copying the conf file inside for runs
 COPY docker_configs/broker.conf /
 
 # Expose MQTT port
