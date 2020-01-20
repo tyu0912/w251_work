@@ -22,7 +22,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     try:
-	    print("message received. Decoding...")
+	print("message received. Decoding...")
 
         # Decoding the pic
         decode = np.frombuffer(msg.payload, dtype=np.uint8)
