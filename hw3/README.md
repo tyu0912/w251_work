@@ -57,5 +57,5 @@ OpenCV Error: Assertion failed (code) in imencode, file /build/opencv-XDqSFW/ope
 
 __**Note 2**__
 
-For some strange reason, indenting got messed up in instance/app/index.py when committing changes. This should be resolved now in commit c7deba5d15efbe9a084a3d135170674742350f0c but it is unclear why this happened. Would need to address if happens again. 
+For some strange reason, indenting got messed up in instance/app/index.py when committing changes. This should be resolved now in commit c7deba5d15efbe9a084a3d135170674742350f0c but it is unclear why this happened. Would need to address again if it happens. 
 
