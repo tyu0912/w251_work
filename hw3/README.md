@@ -1,6 +1,8 @@
 # HW3: Internet of Things
 
-The task of this homework is to send pictures from the Jetson TX2 to an Object Store on IBM Cloud. The main technologies and software that were recommended and used in this project include a webcam, OpenCV, Docker, Alpine, Ubuntu, and Mosquitto. A diagram of the pipeline can be found at https://github.com/MIDS-scaling-up/v2/tree/master/week03/hw.
+The task of this homework is to send pictures from the Jetson TX2 to an Object Store on IBM Cloud. The main technologies and software that were recommended and used in this project include a webcam, OpenCV, Docker, Alpine, Ubuntu, and Mosquitto. A diagram of the pipeline can be found at https://github.com/MIDS-scaling-up/v2/tree/master/week03/hw. 
+
+The repo here for this task is organized by the environment its run in: jetson vs instance. All necessary files to run this are located in each folder and detailed below.
 
 ## 1. Jetson
 
@@ -12,6 +14,10 @@ On the Jetson side, there are three main parts:
 Each part has its own bash script to run that will trigger its respective Dockerfile, config files, and app components. This was done to make each part more unit testable. To get everything up and running, first use the `run_network.sh` script which sets up a user-defined bridge network for the whole thing. The main parts can be brought up in any order after that. 
 
 Per the diagram, the pictures from the camera are captured by OpenCV which will then pass on the message to a Mosquitto broker. This broker then passes the message to the forwarder which launches it to the instance for further processing. More details can be found via the line comments of each file.
+
+### Explanation of MQTT and Topic
+
+The topic throughout this project is: face_cutter/camera-broker1. Only one topic was used since the data flows through only one pathway. The QoS that was used was 0 between the forwarder and the receiver below. This is because although higher QoS means more pictures are likeley to get through, it is also slower because of the extra steps in verification. The pictures sent here are considered non-sensitive and we are able to capture many at a time. Therefore this was opted as the preferable option. **Note:** In each of the bash files, there are more explanations on the configs used for mosquitto.
 
 ## 2. Instance
 
