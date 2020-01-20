@@ -39,3 +39,18 @@ To view some of the pics taken, please go to http://tennisonyu-w251-hw3.s3.us-so
 
 For example:
 http://tennisonyu-w251-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/00027c6f-6e4e-483e-a8b2-ba10704c8e8e.png
+
+## Interesting Considerations
+
+OpenCV and/or my camera do not seem to integrate all that well. Although extremely rare, note both of the below which seem to originate from imencode and libpng which is a dependency. Using the try-except method to continue the capture seems to have no detrimental effects so it is unclear what is causing these. 
+
+Error 1:
+cv2.error: /build/opencv-XDqSFW/opencv-3.2.0+dfsg/modules/imgcodecs/src/loadsave.cpp:798: error: (-215) code in function imencode
+
+Error 2:
+libpng warning: Image width is zero in IHDR
+libpng warning: Image height is zero in IHDR
+libpng error: Invalid IHDR data
+OpenCV Error: Assertion failed (code) in imencode, file /build/opencv-XDqSFW/opencv-3.2.0+dfsg/modules/imgcodecs/src/loadsave.cpp, line 798
+
+
