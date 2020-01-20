@@ -25,7 +25,7 @@ def on_message(client, userdata, msg):
 	    print("message received. Decoding...")
 
         # Decoding the pic
-	    decode = np.frombuffer(msg.payload, dtype=np.uint8)
+        decode = np.frombuffer(msg.payload, dtype=np.uint8)
         picture = cv2.imdecode(decode, flags=1)
         
         # Saving the pic in temp
