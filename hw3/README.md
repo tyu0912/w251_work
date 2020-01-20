@@ -15,7 +15,7 @@ On the Jetson side, there are three main parts:
 2. Broker (run_broker.sh)
 3. Forwarder (run_forwarder.sh)
 
-Each part has its own bash script to run that will trigger its respective Dockerfile, config files, and app components. This was done to make each part more unit testable. To get everything up and running, first use the `run_network.sh` script which sets up a user-defined bridge network for this respective section/platform. The main parts can be brought up in any order after that. 
+Each part has its own bash script to run that will trigger its respective Dockerfile, config files, and app components. This was done to make each part more unit testable. To get everything up and running, first use the `run_network.sh` script which sets up a user-defined bridge network for this respective section/platform. The main parts can be brought up in any order after that. I prefer to do forwarder, then broker, then camera.
 
 Per the diagrams above, the pictures from the camera are captured by OpenCV which will then pass on the message to a Mosquitto broker. This broker then passes the message to the forwarder through a bridge. The forwarder then launches it to the instance for further processing. Line by line code details can be found via the comments of each file.
 
