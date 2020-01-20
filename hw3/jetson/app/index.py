@@ -33,10 +33,15 @@ while 1:
         # cv2.imshow("frame", img)
         
         # Encoding the pic and sending it to the broker
-        png = cv2.imencode(".png", img)[1]
-        msg = bytearray(png)
+        # Try-except is to avoid internal bug with imencode
+        try:
+            png = cv2.imencode(".png", img)[1]
+            msg = bytearray(png)
 
-        local_client.publish(LOCAL_MQTT_TOPIC, payload=msg, qos=0, retain=False)
+            local_client.publish(LOCAL_MQTT_TOPIC, payload=msg, qos=0, retain=False)
+            
+        except:
+            pass
 
     # Loop breaking parameter
     k = cv2.waitKey(30) & 0xff
