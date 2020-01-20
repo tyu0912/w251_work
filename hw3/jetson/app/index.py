@@ -33,7 +33,7 @@ while 1:
         # cv2.imshow("frame", img)
         
         # Encoding the pic and sending it to the broker
-        rc, png = cv2.imencode(".png", img)
+        png = cv2.imencode(".png", img)[1]
         msg = bytearray(png)
 
         local_client.publish(LOCAL_MQTT_TOPIC, payload=msg, qos=0, retain=False)
