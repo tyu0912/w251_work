@@ -8,7 +8,11 @@ from mqtt import *
 face_cascade = cv2.CascadeClassifier('/src/haarcascade_frontalface_default.xml')
 
 # Grabbing the video capture methods. Note, 0 worked for me instead of 1.
-cap = cv2.VideoCapture(0)
+try:
+    cap = cv2.VideoCapture(0)
+except:
+    cap = cv2.VideoCapture(1)
+    
 cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
 
 print("Detecting Pics")
