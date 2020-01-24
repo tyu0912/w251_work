@@ -65,5 +65,6 @@ For video capture function below, a try-except was used since it usually works w
 
 try:
     cap = cv2.VideoCapture(0)
+
 except:
     cap = cv2.VideoCapture(1)
