@@ -61,10 +61,4 @@ For some strange reason, indenting got messed up in instance/app/index.py when c
 
 __**Note 3**__
 
-For video capture function below, a try-except was used since it usually works with 1 but 0 worked instead for me. 
-
-try:
-    cap = cv2.VideoCapture(0)
-
-except:
-    cap = cv2.VideoCapture(1)
+For video capture function in index.py under jetson/app, a try-except was used since it usually works with 1 but 0 worked instead for me. 
