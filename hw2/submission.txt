@@ -1,0 +1,34 @@
+BEFORE
+
+id         hostname     domain      cpu   memory   public_ip        private_ip      datacenter   action
+95279096   tennisonyu   w251.com    1     1024     169.53.129.167   10.122.80.241   sjc01
+95280516   test         you.cloud   2     2048     -                10.122.80.252   sjc01        POST_INSTALL_COMPLETE
+
+RIGHT AFTER
+
+id         hostname     domain      cpu   memory   public_ip        private_ip      datacenter   action
+95279096   tennisonyu   w251.com    1     1024     169.53.129.167   10.122.80.241   sjc01
+95280516   test         you.cloud   2     2048     -                10.122.80.252   sjc01
+
+AFTER 10 SEC
+
+id         hostname     domain      cpu   memory   public_ip        private_ip      datacenter   action
+95279096   tennisonyu   w251.com    1     1024     169.53.129.167   10.122.80.241   sjc01
+95280516   test         you.cloud   2     2048     -                10.122.80.252   sjc01        CLOUD_RECLAIM_PREP
+
+AFTER 15 SEC
+
+id         hostname     domain      cpu   memory   public_ip        private_ip      datacenter   action
+95279096   tennisonyu   w251.com    1     1024     169.53.129.167   10.122.80.241   sjc01
+95280516   test         you.cloud   2     2048     -                10.122.80.252   sjc01        RECLAIM_NETWORK
+
+AFTER 45 SEC
+
+id         hostname     domain     cpu   memory   public_ip        private_ip      datacenter   action
+95279096   tennisonyu   w251.com   1     1024     169.53.129.167   10.122.80.241   sjc01
+
+
+
+
+
+
