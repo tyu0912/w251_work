@@ -1,0 +1,29 @@
+FROM tensorflow
+
+RUN apt update
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt install -y python3-opencv \
+		   python3-pip \
+                   python3-pil \
+                   vim-tiny \
+		   libopencv-dev \
+                   libcanberra-gtk-module \
+                   python3-matplotlib
+                   #tcl-dev  \
+		   #tk-dev  \
+                   #python3-tk \
+                   #libopencv-dev \
+		   #python3-matplotlib
+
+
+RUN mkdir /src
+
+COPY data /src/data
+COPY script.py /src/script.py
+COPY camera.py /src/camera.py
+
+WORKDIR "/src"
+
+CMD ["python3", "/src/camera.py"]
