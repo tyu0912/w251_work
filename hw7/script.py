@@ -72,64 +72,56 @@ tf_num_detections = tf_sess.graph.get_tensor_by_name('num_detections:0')
 #image = Image.open(IMAGE_PATH)
 #plt.imshow(image)
 
-try:
-    cap = cv2.VideoCapture(0)
-except:
-    cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
-ret, img = cap.read()
+while 1:
+    ret, img = cap.read()
+    img = cv2.resize(img, (300, 300), interpolation = cv2.INTER_AREA)
+    cv2.imshow("frame", img)
 
-cv2.imshow("frame", img)
+    # Run network on Image
 
-#image_resized = np.array(img.resize((300, 300)))
-#image = np.array(image)
+    #image_np = np.array(img)
 
-# Run network on Image
+    #scores, boxes, classes, num_detections = tf_sess.run([tf_scores, tf_boxes, tf_classes, tf_num_detections], feed_dict={
+    #    tf_input: image_np[None, ...]
+    #})
 
-scores, boxes, classes, num_detections = tf_sess.run([tf_scores, tf_boxes, tf_classes, tf_num_detections], feed_dict={
-    tf_input: image_resized[None, ...]
-})
 
-boxes = boxes[0] # index by 0 to remove batch dimension
-scores = scores[0]
-classes = classes[0]
-num_detections = num_detections[0]
+    #boxes = boxes[0] # index by 0 to remove batch dimension
+    #scores = scores[0]
+    #classes = classes[0]
+    #num_detections = num_detections[0]
+           
+    #box = boxes * np.array([image_np.shape[0], image_np.shape[1], image_np.shape[0], image_np.shape[1]])
+    #img_resized = cv2.rectangle(img_resized, (int(box[1]), int(box[0])), (int(box[3] - box[1]), int(box[2] - box[0])), (255,0,0), 2)
 
-# Display Results
+    # cv2.imshow("frame", img_resized)
 
-fig = plt.figure()
-ax = fig.add_subplot(1, 1, 1)
 
-ax.imshow(image)
+        # scale box to image coordinates
+        # box = boxes[i] * np.array([image.shape[0], image.shape[1], image.shape[0], image.shape[1]])
 
-# plot boxes exceeding score threshold
-for i in range(int(num_detections)):
-    if scores[i] < DETECTION_THRESHOLD:
-        continue
-    # scale box to image coordinates
-    box = boxes[i] * np.array([image.shape[0], image.shape[1], image.shape[0], image.shape[1]])
+        # display rectangle
+        # patch = patches.Rectangle((box[1], box[0]), box[3] - box[1], box[2] - box[0], color='g', alpha=0.3)
 
-    # display rectangle
-    patch = patches.Rectangle((box[1], box[0]), box[3] - box[1], box[2] - box[0], color='g', alpha=0.3)
-    ax.add_patch(patch)
+        # display class index and score
+        # plt.text(x=box[1] + 10, y=box[2] - 10, s='%d (%0.2f) ' % (classes[i], scores[i]), color='w')
+    
 
-    # display class index and score
-    plt.text(x=box[1] + 10, y=box[2] - 10, s='%d (%0.2f) ' % (classes[i], scores[i]), color='w')
+    # Benchmark
 
-plt.show()
+    #num_samples = 50
+    #t0 = time.time()
 
-# Benchmark
+    #for i in range(num_samples):
+    #    scores, boxes, classes, num_detections = tf_sess.run([tf_scores, tf_boxes, tf_classes, tf_num_detections], feed_dict={
+    #        tf_input: image_resized[None, ...]
+    #    })
+    
+    #t1 = time.time()
+    #print('Average runtime: %f seconds' % (float(t1 - t0) / num_samples))
 
-num_samples = 50
-
-t0 = time.time()
-for i in range(num_samples):
-    scores, boxes, classes, num_detections = tf_sess.run([tf_scores, tf_boxes, tf_classes, tf_num_detections], feed_dict={
-        tf_input: image_resized[None, ...]
-    })
-t1 = time.time()
-print('Average runtime: %f seconds' % (float(t1 - t0) / num_samples))
 
 # Close Session
-
 tf_sess.close()
