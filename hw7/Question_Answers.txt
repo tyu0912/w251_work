@@ -1,7 +1,21 @@
 1. Describe your solution in detail. What neural network did you use? What dataset was it trained on? What accuracy does it achieve?
 
+My method draws heavily from https://github.com/MIDS-scaling-up/v2/blob/master/week07/hw/hw07-hint.ipynb. We use the model from https://github.com/yeephycho/tensorflow-face-detection which was tuned on the WIDERFACE dataset. The original model is from the tensorflow api. 
+
+Per the jupyter notebook above, the method is essentially that I use OpenCV to connect to the camera and capture images. It is then fead into the model for predictions. The index of the max score of the output is used to isolate box coordinates and then altogether, everything is displayed again using OpenCV. With me at a rest position, the accuracy score achieved is about 0.53 - 0.56. If I position myself in perfect position in front of the camera, an accuracy above 0.85 is achievable. 
+
 2. Does it achieve reasonable accuracy in your empirical tests? Would you use this solution to develop a robust, production-grade system?
+
+As mentioned, the accuracy is about 0.53-0.56 at rest but can jump up to 0.85. Because good results require an optimal resting position, I would not use this for a production-grade system. 
+
+There is also some cases where it focuses too much on parts of the face such as an eye. It does a bad job also on angled and obscure faces. 
+
+Overall, it seems there is a lot of potential for it to mistakenly classify objects. 
 
 3. What framerate does this method achieve on the Jetson? Where is the bottleneck?
 
+The bottleneck is likely the inference step and running the network. Image capture became noticeably slower after adding that part in. The frame rate seems to monotonically increase but appears to plateau a little bit around 6.92 frames per second. Its curious why there is a considerable ramp up period. It could be because the model needs a few seconds to ramp up before it can start predicting therefore the timer starts early. For OpenCV, it was about 5.75-6.75 frames per second at an immediate steady rate. 
+
 4. Which is a better quality detector: the OpenCV or yours?
+
+Between my current algorithm and OpenCV, I would say OpenCV is a bit better. 

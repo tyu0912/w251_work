@@ -20,7 +20,7 @@ CLASSES_NAME='detection_classes'
 SCORES_NAME='detection_scores'
 MASKS_NAME='detection_masks'
 NUM_DETECTIONS_NAME='num_detections'
-DETECTION_THRESHOLD=0.5
+DETECTION_THRESHOLD=0
 
 input_names = [INPUT_NAME]
 output_names = [BOXES_NAME, CLASSES_NAME, SCORES_NAME, NUM_DETECTIONS_NAME]
@@ -66,6 +66,7 @@ tf_num_detections = tf_sess.graph.get_tensor_by_name('num_detections:0')
 
 best_scores = []
 cap = cv2.VideoCapture(0)
+start = time.time()
 
 while 1:
     # Detecting and processing pics
@@ -90,7 +91,7 @@ while 1:
 
     best_score_pos = np.argmax(scores)
     
-    if scores[best_score_pos] > 0.3:
+    if scores[best_score_pos] >= DETECTION_THRESHOLD:
         best_scores.append(scores[best_score_pos])
 
         box = boxes[best_score_pos] * np.array([image_np.shape[0], image_np.shape[1], image_np.shape[0], image_np.shape[1]])
@@ -99,8 +100,11 @@ while 1:
 
         img = cv2.putText(img, str(scores[best_score_pos]), (int(box[1]), int(box[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
 
+        elapsed_time = time.time() - start
+
         cv2.imshow("frame", img)
-        print(sum(best_scores)/len(best_scores))
+        print("Score: " + str(sum(best_scores)/len(best_scores)))
+        print("Frame Rate: " + str(len(best_scores)/elapsed_time))
 
     # Loop breaking parameter
     k = cv2.waitKey(30) & 0xff

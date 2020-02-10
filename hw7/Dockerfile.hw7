@@ -20,8 +20,7 @@ RUN apt install -y python3-opencv \
 
 RUN mkdir /src
 
-COPY data /src/data
-COPY script.py /src/script.py
+COPY dev_files /src/data
 COPY camera.py /src/camera.py
 
 WORKDIR "/src"
