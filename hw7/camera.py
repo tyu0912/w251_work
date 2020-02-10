@@ -10,15 +10,6 @@ import time
 import cv2
 
 
-# Getting the face detection xml. This file is found directly in the cv2 (opencv) github repo
-# face_cascade = cv2.CascadeClassifier('/src/haarcascade_frontalface_default.xml')
-
-# Grabbing the video capture methods. Note, 0 worked for me instead of 1.
-
-
-
-
-
 # Setting variables
 FROZEN_GRAPH_NAME = 'data/frozen_inference_graph_face.pb'
 IMAGE_PATH = 'data/warriors.jpg'
@@ -72,9 +63,6 @@ tf_scores = tf_sess.graph.get_tensor_by_name('detection_scores:0')
 tf_boxes = tf_sess.graph.get_tensor_by_name('detection_boxes:0')
 tf_classes = tf_sess.graph.get_tensor_by_name('detection_classes:0')
 tf_num_detections = tf_sess.graph.get_tensor_by_name('num_detections:0')
-
-
-
 
 best_scores = []
 cap = cv2.VideoCapture(0)
