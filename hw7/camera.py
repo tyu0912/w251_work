@@ -76,9 +76,7 @@ tf_num_detections = tf_sess.graph.get_tensor_by_name('num_detections:0')
 
 
 
-
-
-
+best_scores = []
 cap = cv2.VideoCapture(0)
 
 while 1:
@@ -103,19 +101,22 @@ while 1:
     num_detections = num_detections[0]
 
     best_score_pos = np.argmax(scores)
-    box = boxes[best_score_pos] * np.array([image_np.shape[0], image_np.shape[1], image_np.shape[0], image_np.shape[1]])
+    
+    if scores[best_score_pos] > 0.3:
+        best_scores.append(scores[best_score_pos])
 
-    print(box)
+        box = boxes[best_score_pos] * np.array([image_np.shape[0], image_np.shape[1], image_np.shape[0], image_np.shape[1]])
 
-    img = cv2.rectangle(img, (int(box[1]), int(box[0])), (int(box[3]),int(box[2])), (255,0,0), 2) 
+        img = cv2.rectangle(img, (int(box[1]), int(box[0])), (int(box[3]),int(box[2])), (255,0,0), 2) 
 
-    #print("hi")
+        img = cv2.putText(img, str(scores[best_score_pos]), (int(box[1]), int(box[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
 
-    cv2.imshow("frame", img)
-        
+        cv2.imshow("frame", img)
+        print(sum(best_scores)/len(best_scores))
+
     # Loop breaking parameter
     k = cv2.waitKey(30) & 0xff
-    if k == 27:
+    if k == 27: 
         break
 
 # Pause time
