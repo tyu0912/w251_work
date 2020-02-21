@@ -18,7 +18,7 @@ To train 50 000 steps, it took approximately 22 hours.
 
 2. Do you think your model is fully trained? How can you tell?
 
-
+<img src="images/training_loss1.jpg">
 
 3. Were you overfitting?
 4. Were your GPUs fully utilized?
