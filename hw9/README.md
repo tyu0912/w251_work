@@ -20,10 +20,20 @@ To train 50 000 steps, it took approximately 22 hours.
 
 Per the training loss images, we can see that a saturation point has been reached. This is indicative that the model is trained.
 
-<img src="images/training_loss1.JPG" width="45%" height="45%"><img src="images/gradient_norm1.JPG" width="45%" height="45%">
+<img src="images/training_loss1.JPG" width="45%" height="45%"><img src="images/gradient_norm1.JPG" width="50%" height="50%">
 
 3. Were you overfitting?
+
+It's unlikely we were overfitting. Per the evaluation loss below, there is no increase seen. Usually if there is overfitting this would occur because the model fits the training data so well but can't generalize to the evaluation data anymore. 
+
+<img src="images/eval_loss1.JPG" width="45%" height="45%">
+
 4. Were your GPUs fully utilized?
+
+Yes, according to the below, all 4 GPUs seem to be fully used during the training process.
+
+<img src="images/nvidia-smi_a.JPG" width="45%" height="45%"><img src="images/nvidia-smi_b.JPG" width="45%" height="45%">
+
 5. Did you monitor network traffic (hint: apt install nmon ) ? Was network the bottleneck?
 6. Take a look at the plot of the learning rate and then check the config file. Can you explan this setting?
 7. How big was your training set (mb)? How many training lines did it contain?
