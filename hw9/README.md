@@ -48,6 +48,10 @@ From the below, it appears that the learning rate increases linearly at the begi
 <img src="images/learning_rate1.JPG" width="45%" height="45%">
 
 7. How big was your training set (mb)? How many training lines did it contain?
+
+<img src="images/learning_rate1.JPG" width="45%" height="45%">
+<img src="images/learning_rate1.JPG" width="45%" height="45%">
+
 8. What are the files that a TF checkpoint is comprised of?
 9. How big is your resulting model checkpoint (mb)?
 10. Remember the definition of a "step". How long did an average step take?
