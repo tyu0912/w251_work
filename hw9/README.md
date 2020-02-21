@@ -49,8 +49,10 @@ From the below, it appears that the learning rate increases linearly at the begi
 
 7. How big was your training set (mb)? How many training lines did it contain?
 
-<img src="images/learning_rate1.JPG" width="45%" height="45%">
-<img src="images/learning_rate1.JPG" width="45%" height="45%">
+As below, the deutch dataset is about 710MB whereas the english one is 636MB. Both datasets have 4562102 lines.  
+
+<img src="images/data_memory.JPG" width="45%" height="45%">
+<img src="images/data_line_count.JPG" width="45%" height="45%">
 
 8. What are the files that a TF checkpoint is comprised of?
 9. How big is your resulting model checkpoint (mb)?
