@@ -18,7 +18,9 @@ To train 50 000 steps, it took approximately 22 hours.
 
 2. Do you think your model is fully trained? How can you tell?
 
-<img src="images/training_loss1.JPG" width="45%" height="45%">
+Per the training loss images, we can see that a saturation point has been reached. This is indicative that the model is trained.
+
+<img src="images/training_loss1.JPG" width="45%" height="45%"><img src="images/gradient_norm1.JPG" width="45%" height="45%">
 
 3. Were you overfitting?
 4. Were your GPUs fully utilized?
