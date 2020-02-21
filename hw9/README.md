@@ -60,7 +60,12 @@ There are several files but the main ones seem to be data, index, and metadata f
 
 9. How big is your resulting model checkpoint (mb)?
 
-
+The model file which again includes data (852267044 b), index (36131 b), and metadata (16360030 b) sums up to be about 868 MB. In the checkpoint folder, there are 5 of these so it is about 4340 MB.
 
 10. Remember the definition of a "step". How long did an average step take?
+
+Step is essentially one gradient update. It's one iteration of a batch being processed. We did 50000 steps in ~22 hours meaning 0.631 steps/second.
+
 11. How does that correlate with the observed network utilization between nodes?
+
+Network should be inversely related to step. The better the network, the more steps that should be able to be processed per unit time. 
