@@ -35,6 +35,12 @@ Yes, according to the below, all 4 GPUs seem to be fully used during the trainin
 <img src="images/nvidia-smi_a.JPG" width="45%" height="45%"><img src="images/nvidia-smi_b.JPG" width="45%" height="45%">
 
 5. Did you monitor network traffic (hint: apt install nmon ) ? Was network the bottleneck?
+
+Yes, the network traffic was monitored on both instances and the network was not a bottleneck for me in this case. 
+
+<img src="images/nmon_a.JPG" width="45%" height="45%"><img src="images/nmon_b.JPG" width="45%" height="45%">
+<img src="images/instance.JPG" width="45%" height="45%">
+
 6. Take a look at the plot of the learning rate and then check the config file. Can you explan this setting?
 7. How big was your training set (mb)? How many training lines did it contain?
 8. What are the files that a TF checkpoint is comprised of?
