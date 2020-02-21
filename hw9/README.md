@@ -1,6 +1,6 @@
 # Homework 9: Distributed Training and Neural Machine Translation
 
-In this homework, we train a Seq2Seq model which has been the source of many breakthroughs in machine translation. They are very expensive to train though and require huge amounts of data. Therefore, we will use leverage a distributed training method to do it here with the guidance of instructions found here: https://github.com/MIDS-scaling-up/v2/tree/master/week09/hw.
+In this homework, we train a Seq2Seq model which has been the source of many breakthroughs in machine translation. They are very expensive to train though and require huge amounts of data. Therefore, we will use a distributed training method to do it here with the guidance of instructions found here: https://github.com/MIDS-scaling-up/v2/tree/master/week09/hw.
 
 ## Setup
 
@@ -42,6 +42,8 @@ Yes, the network traffic was monitored on both instances and the network was not
 <img src="images/instance.JPG" width="45%" height="45%">
 
 6. Take a look at the plot of the learning rate and then check the config file. Can you explan this setting?
+
+From the below, it appears that the learning rate increases linearly at the beginning and then decreases slowly afterwards. This method appears to be partially based on https://arxiv.org/pdf/1706.03762.pdf, the famous `Attention is All you Need` paper. Here they specified they ramped up the learning rate for the first 4000 (8000 in our case) warmup_steps training steps, then decreased it proportionally to the inverse square root of the step number. In a way, treating the learning rate as an adaptable hyperparameter like this is smart because, one would expect the model to be terrible at first so it would be beneficial to zig-zag across the feature space as much as possible towards a minima. As the training proceeds and more data is observed, we want to calm the algorithm and allow it to make better decisions in the feature space as forward and back propagates. Note that there are also other concepts like momentum which help in picking ideal directions in the feature space to converge on. 
 
 <img src="images/learning_rate1.JPG" width="45%" height="45%">
 
