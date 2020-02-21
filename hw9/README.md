@@ -55,6 +55,12 @@ As below, the deutch dataset is about 710MB whereas the english one is 636MB. Bo
 <img src="images/data_line_count.JPG" width="45%" height="45%">
 
 8. What are the files that a TF checkpoint is comprised of?
+
+There are several files but the main ones seem to be data, index, and metadata files. There are also losses at different checkpoints, the model, etc. In more detail: the meta file describes the saved graph structure, the index file is an immutable table where each key is a name of a tensor and its value describes the metadata of a tensor, and lastly the datafile contains the tensor and values. 
+
 9. How big is your resulting model checkpoint (mb)?
+
+
+
 10. Remember the definition of a "step". How long did an average step take?
 11. How does that correlate with the observed network utilization between nodes?
