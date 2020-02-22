@@ -72,7 +72,7 @@ Network should be inversely related to step. The better the network, the more st
 
 ## Other observations
 
-1. Bleu Evaluation
+1. BLEU Evaluation Score
 
 It is interesting to note that our BLEU evaluation score did not match exactly with the instructions though we arrive at approximately the same flattening point. With confirmation, it seems that the graphs found in the link instructions were ran on a P100 instead of a V100 and it has been noted before that using different GPUs can lead to different results (https://determined.ai/blog/reproducibility-in-ml/ , https://www.twosigma.com/insights/article/a-workaround-for-non-determinism-in-tensorflow/). The cause in this case could be related to how the two different GPU ingest batches at the start of training. It's noticeable that after the first point, the trend seems to be in line with the instructions.
 
