@@ -82,7 +82,7 @@ It is interesting to note that our BLEU evaluation score did not match exactly w
 
 Limiting the network bandwidth to 10Mbps, we saw changes in the performance of the GPUs where the performance would dip on ocassion from 100% to 70-80%. This is in line with what was discussed previously.
 
-<img src="images/nvidia-smi-limited-bandwith.JPG" width="45%" height="45%">
+<img src="images/nvidia-smi-limited-bandwith.JPG" width="100%" height="100%">
 
 ## Conclusion
 
