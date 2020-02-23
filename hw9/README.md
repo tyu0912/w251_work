@@ -74,13 +74,13 @@ Network should be inversely related to step. The better the network, the more st
 
 1. BLEU Evaluation Score
 
-It is interesting to note that our BLEU evaluation score did not match exactly with the instructions though we arrive at approximately the same flattening point. With confirmation, it seems that the graphs found in the link instructions were ran on a P100 instead of a V100 and it has been noted before that using different GPUs can lead to different results (https://determined.ai/blog/reproducibility-in-ml/ , https://www.twosigma.com/insights/article/a-workaround-for-non-determinism-in-tensorflow/). The cause in this case could be related to how the two different GPU ingest batches at the start of training. It's noticeable that after the first point, the trend seems to be in line with the instructions.
+It is interesting to note that our BLEU evaluation score did not match exactly with the instructions though we arrive at approximately the same flattening point of ~0.38 with 0 smoothing. With confirmation, it seems that the graphs found in the link instructions were ran on a P100 instead of a V100 and it has been noted before that using different GPUs can lead to different results (https://determined.ai/blog/reproducibility-in-ml/ , https://www.twosigma.com/insights/article/a-workaround-for-non-determinism-in-tensorflow/). The cause in this case could be related to how the two different GPU ingest batches at the start of training. It's noticeable that after the first point, the trend seems to be in line with the instructions.
 
 <img src="images/eval_bleu1.JPG" width="60%" height="60%">
 
 2. Limiting the Network Bandwidth
 
-Limiting the network bandwidth to 10Mbps, we saw changes in the performance of the GPUs where the performance would dip on ocassion from 100% to 70-80%. This is in line with what was discussed previously.
+Limiting the network bandwidth to 10Mbps, we saw changes in the performance of the GPUs where the performance would dip on ocassion from 100% to 70-80%. This is in line with what was discussed previously. Making this change also didn't seem to affect the BLEU Evaluation Score much either.
 
 <img src="images/nvidia-smi-limited-bandwith.JPG" width="100%" height="100%">
 
