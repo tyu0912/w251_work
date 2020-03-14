@@ -1,52 +1,79 @@
 1. What parameters did you change? 
 
-Base:
-The inference and update process.
+**Change 1:**
+I changed the inference and update process.
+
+**Change 2:**
+I changed the optimizer.
+
+**Change 3:**
+I changed the overall neural network architecture. More specifically the number of layers and nodes.
 
 
 2. What values did you try?
 
-Base:
+**Change 1:**
+
++Old+
+#maxr = -1000
+#maxa = None
+#for i in range(100):
+#    a1 = np.random.randint(-1000,1000)/1000
+#    a2 = np.random.randint(-1000,1000)/1000
+#    testa = [a1,a2]
+#    r_pred = model.predict(np.array(list(new_s)+list(testa)).reshape(1,len(list(new_s)+list(testa))))
+#    if r_pred > maxr:
+#        maxr = r_pred
+#        maxa = testa
+#a = np.array(maxa)
+
++New+
+a_candidates = np.random.uniform(low=-1, high=1, size=(batch_size, 2))
+s_expanded = np.broadcast_to(new_s, (batch_size, 8))
+all_candidates = np.concatenate([s_expanded, a_candidates], axis=1)
+r_pred = model.predict(all_candidates)
+
+max_idx = np.argmax(r_pred)
+a = a_candidates[max_idx]
 
 
-Change 1:
-- Adam was replaced with Adamax. Adamax is supposed to work better with sparse parameter updates. The gradient term is essentially ignored when it’s small therefore parameters are less susceptible to gradient noise.
+*Change 2:*
+Adam was replaced with Adamax. Adamax is supposed to work better with sparse parameter updates. The gradient term is essentially ignored when it’s small therefore parameters are less susceptible to gradient noise.
 
-
-Change 2:
-- Update the number of layers and nodes
-- def nnmodel(input_dim):
-    model = Sequential()
-    model.add(Dense(64, input_dim=input_dim, activation='relu'))
-    model.add(Dense(64, input_dim=input_dim, activation='relu'))
-    model.add(Dense(32, activation='sigmoid'))
-    model.add(Dense(1))
-    model.compile(loss='mean_squared_error', optimizer='adamax', metrics=['accuracy'])
-    return model
-
+*Change 3:*
+The below is the new neural network architecture:
+model = Sequential()
+model.add(Dense(64, input_dim=input_dim, activation='relu'))
+model.add(Dense(64, input_dim=input_dim, activation='relu'))
+model.add(Dense(32, activation='sigmoid'))
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adamax', metrics=['accuracy'])
 
 
 3. Did you try any other changes that made things better or worse? Did they improve or degrade the model? 
 
-Base:
+*Change 1:*
 At step  50000
 reward:  -4.262057550031028
 total rewards  229.75075210891367
 loss: 174.4578
 
 
-Change 1 - adam to adamax:
+*Change 2 - adam to adamax:*
 At step  50000
 reward:  -7.917616013448585
 total rewards  174.91816134397675
-<pre>loss: 158.1465 </pre>
+loss: 158.1465
 
 
-Change 2 - change layers:
+*Change 3 - change layers:*
 At step  50000
 reward:  -7.73850445549951
 total rewards  -368.4289377267589
 loss: 171.5462 
 
+The above are the results afteer 50000 interations. Overall, changing Adam to Adamax seems to be the thing that positively changed the lunar lander whereas increasing the number of layers and nodes did not seem to help. In fact, it seems a more complex model is detrimental. https://towardsdatascience.com/ai-learning-to-land-a-rocket-reinforcement-learning-84d61f97d055 made a couple good observations about potential variables to try and configure to improve the model. From this point below, we attempt to present some of their experiments:
 
 4. Based on what you observed, what conclusions can you draw about the different parameters and their values?
+
+Again, it seems like increasing the complexity of the model does not lead to a better result. In fact, it may lead to overtraining which has been shown in the above article to lead to poor results. Rather, it is in the optimization and the subtle tuning of hyperparameters during training that really dictates the results. Shifting to adamax made sense since we are reducing the suceptibility to gradient noise. It would be interesting explore the other fine tuning options seen above. 
