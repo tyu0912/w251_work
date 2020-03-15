@@ -1,91 +1,101 @@
-# Homework 11 -- More fun with OpenAI Gym!
+# Homework 11:
 
-In this homework, you will be training a Lunar Lander to land properly **using your Jetson TX2**. There is a video component to this file, so use a display or VNC.
+The goal of this homework is to land the lunar lander between the pictured goal post using reinforcement style learning. In `old_files/README.md`, we can see the run instructions and recommendations on how to potentially achieve our goal better.  Below are the answers to the questions that are also specified and serves as a guide to the changes that were made.
 
-There are two python scripts used for this process. The first file, `lunar_lander.py`, defines the Lunar Lander for OpenAI Gym. It also defines the keras model.
+1. What parameters did you change?
 
-The second file, `run_lunar_lander.py`, instantiates the Lunar Lander environment and runs it.
+**Change 1:**
+I changed the inference and update process.
 
-The code that creates the model in `lunar_lander.py` is:
+**Change 2:**
+I changed the optimizer.
 
+**Change 3:**
+I changed the overall neural network architecture. More specifically the number of layers and nodes.
+
+**Change 4:**
+I changed the number of iterations and threshold.
+
+
+2. What values did you try?
+
+**Change 1:**
+
++Old+
 ```
-def nnmodel(input_dim):
-    model = Sequential()
-    model.add(Dense(32, input_dim=input_dim, activation='relu'))
-    model.add(Dense(16, activation='sigmoid'))
-    model.add(Dense(1))
-    model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
-    return model
-```
- 
-In its current state, the model which is created is not very good.
-
-For this homework, you should adjust the model parameters and the training parameters (total iterations and threshold) to get better results. You should do a little research into how the parameters affect the resulting model. For example, is `adam` better than `adamax`? Is there a better optimizer than both of them? Are there better options for the loss and metrics paremeters of the model? Would more/denser layers help? Fewer layers?
-
-You should try at least three different configurations (one can be the initial "base" configuration) and compare your results. The goal is to increase the number of successful landings (noted by the output "Landed it!").
-
-Some training parameters are in the `run_lunar_lander.py` file:
-
-```
-...
-    model = nnmodel(10)
-
-...
-    training_thr = 3000
-    total_itrs = 50000
-...
-        if steps > training_thr and steps %1000 ==0:
-            # re-train a model
-            print("training model model")
-            modelTrained = True
-            model.fit(np.array(X_train),np.array(y_train).reshape(len(y_train),1), epochs = 10, batch_size=20)
-...
-
-``` 
-
-Some are in the `lunar_lander.py` file:
-
-```
-model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
+#maxr = -1000
+#maxa = None
+#for i in range(100):
+#    a1 = np.random.randint(-1000,1000)/1000
+#    a2 = np.random.randint(-1000,1000)/1000
+#    testa = [a1,a2]
+#    r_pred = model.predict(np.array(list(new_s)+list(testa)).reshape(1,len(list(new_s)+list(testa))))
+#    if r_pred > maxr:
+#        maxr = r_pred
+#        maxa = testa
+#a = np.array(maxa)
 ```
 
-To run the environment, use these commands (ensure you have all the files from the hw11 github folder in your current directory):
-
++New+
 ```
-sudo docker build -t lander -f Dockerfile.lander .
-xhost +
-sudo docker run -it --rm --net=host --runtime nvidia  -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix:rw --privileged -v /data/videos:/tmp/videos lander
+a_candidates = np.random.uniform(low=-1, high=1, size=(batch_size, 2))
+s_expanded = np.broadcast_to(new_s, (batch_size, 8))
+all_candidates = np.concatenate([s_expanded, a_candidates], axis=1)
+r_pred = model.predict(all_candidates)
+max_idx = np.argmax(r_pred)
+a = a_candidates[max_idx]
 ```
 
-You will have a lot of mp4 files in `/data/videos` on your TX2. You can use VLC or Chrome to watch the videos of your landing attempts to see the improvement of your model over the iterations.
+*Change 2:*
+Adam was replaced with Adamax. Adamax is supposed to work better with sparse parameter updates. The gradient term is essentially ignored when it’s small therefore parameters are less susceptible to gradient noise.
 
-## To Turn In
-You should upload three videos showing your best model to Cloud Object Storage and provide links using the instructions below.
-
-Also, submit a write-up of the tweaks you made to the model and the effect they had on the results. 
-Questions to answer:
-What parameters did you change? 
-What values did you try?
-Did you try any other changes that made things better or worse?
-Did they improve or degrade the model?
-Based on what you observed, what conclusions can you draw about the different parameters and their values? 
-
-Grading is based on the changes made and the observed output, not on the accuracy of the model.
-
-We will compare results in class.
+*Change 3:*
+The below is the new neural network architecture:
+model = Sequential()
+model.add(Dense(64, input_dim=input_dim, activation='relu'))
+model.add(Dense(64, input_dim=input_dim, activation='relu'))
+model.add(Dense(32, activation='sigmoid'))
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adamax', metrics=['accuracy'])
 
 
-#### Enable http access to Cloud Object Storage
+**Change 4:**
+training_thr = 3000
+total_itrs = 300
 
-```
-Here's how to enable http access to the S3 COS:
-1) create a bucket & upload a file, remember the resiliency you pick and the location
-2) Go to Buckets -> Access Policies -> Public Access
-3) click the "Create access policy" button
-4) Go to Endpoint (on the left menu) and select your resiliency to find your endpoint (mine was "Regional" because that's how I created my COS)
-5) Your endpoint is the Public location plus your bucket name plus the file
 
-Example: https://s3.eu-gb.cloud-object-storage.appdomain.cloud/brooklyn-artifacts/IBM_MULTICLOUD_MANAGER_3.1.2_KLUS.tar.gz
+3. Did you try any other changes that made things better or worse? Did they improve or degrade the model?
 
-In this example, the bucket is "brooklyn-artifacts" and the single Region is eu-gb
-```
+*Change 1:*
+At step  50000
+reward:  -4.262057550031028
+total rewards  229.75075210891367
+loss: 174.4578
+
+
+*Change 2 - adam to adamax:*
+At step  50000
+reward:  -7.917616013448585
+total rewards  174.91816134397675
+loss: 158.1465
+
+
+*Change 3 - change layers:*
+At step  50000
+reward:  -7.73850445549951
+total rewards  -368.4289377267589
+loss: 171.5462
+
+The first three changes are detailed above. All are after 50000 steps. Overall, changing Adam to Adamax seems to be the thing that positively changed the lunar lander whereas increasing the number of layers and nodes did not seem to help. In fact, it seems a more complex model is detrimental. In this article, https://towardsdatascience.com/ai-learning-to-land-a-rocket-reinforcement-learning-84d61f97d055, Ashish Gupta points out that overtraining the model is potentially harmful. We rectify this below by changing the threshold and the number of iterations. Additionally, there is another article https://towardsdatascience.com/ai-learning-to-land-a-rocket-reinforcement-learning-84d61f97d055 which makes made couple good observations about potential variables to try and configure. If time permits, it would be worthwhile to try some of these.
+
+*Change 4 - reduced training threshold and total iterations*
+At step  50000
+reward:  0.36437514063715937
+total rewards  265.53854890961657
+loss: 149.1106
+
+4. Based on what you observed, what conclusions can you draw about the different parameters and their values?
+
+Again, it seems like increasing the complexity of the model does not lead to a better result due to overtraining. Rather, it is the optimization and subtle tuning of hyperparameters during training that really dictates the results. Both shifting to adamax and lowering the threshold/training iterations lines up well with this.
+
+** To see videos of the latest change, please go to http://s3.us-east.cloud-object-storage.appdomain.cloud/tennisonyu-w251-hw11 **
