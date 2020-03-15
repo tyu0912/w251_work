@@ -2,6 +2,8 @@
 
 The goal of this homework is to land the lunar lander between the pictured goal post using reinforcement style learning. In `old_files/README.md`, we can see the run instructions and recommendations on how to potentially achieve our goal better.  Below are the answers to the questions that are also specified and serves as a guide to the changes that were made.
 
+** To see videos of the latest change, please go to http://s3.us-east.cloud-object-storage.appdomain.cloud/tennisonyu-w251-hw11 **
+
 ## 1. What parameters did you change?
 
 **Change 1:**
@@ -23,7 +25,6 @@ I changed the number of iterations and threshold.
 
 ```
 ### Old
-
 maxr = -1000
 maxa = None
 for i in range(100):
