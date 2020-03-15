@@ -101,7 +101,7 @@ total rewards  265.53854890961657
 loss: 149.1106
 ```
 
-4. Based on what you observed, what conclusions can you draw about the different parameters and their values?
+## 4. Based on what you observed, what conclusions can you draw about the different parameters and their values?
 
 Again, it seems like increasing the complexity of the model does not lead to a better result due to overtraining. Rather, it is the optimization and subtle tuning of hyperparameters during training that really dictates the results. Both shifting to adamax and lowering the threshold/training iterations lines up well with this.
 
