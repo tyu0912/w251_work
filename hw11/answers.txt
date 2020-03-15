@@ -9,6 +9,9 @@ I changed the optimizer.
 **Change 3:**
 I changed the overall neural network architecture. More specifically the number of layers and nodes.
 
+**Change 4:**
+I changed the number of iterations and threshold.
+
 
 2. What values did you try?
 
@@ -50,6 +53,11 @@ model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adamax', metrics=['accuracy'])
 
 
+**Change 4:**
+training_thr = 3000
+total_itrs = 300
+
+
 3. Did you try any other changes that made things better or worse? Did they improve or degrade the model? 
 
 *Change 1:*
@@ -73,6 +81,13 @@ total rewards  -368.4289377267589
 loss: 171.5462 
 
 The above are the results afteer 50000 interations. Overall, changing Adam to Adamax seems to be the thing that positively changed the lunar lander whereas increasing the number of layers and nodes did not seem to help. In fact, it seems a more complex model is detrimental. https://towardsdatascience.com/ai-learning-to-land-a-rocket-reinforcement-learning-84d61f97d055 made a couple good observations about potential variables to try and configure to improve the model. From this point below, we attempt to present some of their experiments:
+
+
+*Change 4 - reduced training threshold and total iterations*
+At step  50000
+reward:  0.36437514063715937
+total rewards  265.53854890961657
+loss: 149.1106 
 
 4. Based on what you observed, what conclusions can you draw about the different parameters and their values?
 

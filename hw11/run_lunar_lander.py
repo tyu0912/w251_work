@@ -30,8 +30,10 @@ if __name__=="__main__":
     tr = 0
     prev_r = 0
     training_thr = 3000
+    #training_thr = 3000
     #training_thr = 1000
-    total_itrs = 50000
+    total_itrs = 300
+    #total_itrs = 50000
     #total_itrs = 5000
     successful_steps = []
     batch_size = 100
