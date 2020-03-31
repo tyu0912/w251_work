@@ -1,0 +1,85 @@
+ls
+yum -y install python-pip
+export PYTHONUSERBASE=/root/pip
+pip install --user virtualenv
+mkdir /opt/ibm-cloud
+mkdir /opt/ibm-cloud/cloud-init
+/root/pip/bin/virtualenv /opt/ibm-cloud/cloud-init/
+source /opt/ibm-cloud/cloud-init/bin/activate
+wget -O "/root/cloud-init.tar.gz" "http://172.18.3.50/cloudinit/cloud-init-18.4.tar.gz"
+tar
+tar -zxf /root/cloud-init.tar.gz -C /root/
+cd /root/cloud-init-18.4/
+/opt/ibm-cloud/cloud-init/bin/pip install -r /root/cloud-init-18.4/requirements.txt
+/opt/ibm-cloud/cloud-init/bin/python /root/cloud-init-18.4/setup.py build
+cp systemd/cloud-init-generator /usr/lib/systemd/system-generators/
+/opt/ibm-cloud/cloud-init/bin/python /root/cloud-init-18.4/setup.py install --init-system systemd
+cd /root
+cp /opt/ibm-cloud/cloud-init/lib/python2.7/site-packages/cloud-init-18.4-py2.7.egg/etc/cloud /etc/cloud
+cp /opt/ibm-cloud/cloud-init/lib/python2.7/site-packages/cloud-init-18.4-py2.7.egg/usr/lib/system/systemd/* /usr/lib/systemd/system
+cp /opt/ibm-cloud/cloud-init/lib/python2.7/site-packages/cloud_init-18.4-py2.7.egg/usr/lib/system/systemd/* /usr/lib/systemd/system
+cp /opt/ibm-cloud/cloud-init/lib/python2.7/site-packages/cloud_init-18.4-py2.7.egg/usr/lib/systemd/system/* /usr/lib/systemd/system
+mv /opt/ibm-cloud/cloud-init/lib/python2.7/site-packages/cloud_init-18.4-py2.7.egg/etc/cloud /etc/cloud
+mv /opt/ibm-cloud/cloud-init/lib/python2.7/site-packages/cloud_init-18.4-py2.7.egg/usr/libexec/cloud-init /usr/libexec
+wget -O "/etc/cloud/cloud.cfg" "http://172.18.3.50/cloudinit/cloud-rhel.cfg"
+sed -i 's:/usr/bin/cloud-init:/opt/ibm-cloud/cloud-init/bin/cloud-init:g' /usr/lib/systemd/system/cloud-init-local.service
+sed -i 's:/usr/bin/cloud-init:/opt/ibm-cloud/cloud-init/bin/cloud-init:g' /usr/lib/systemd/system/cloud-init.service
+sed -i 's:/usr/bin/cloud-init:/opt/ibm-cloud/cloud-init/bin/cloud-init:g' /usr/lib/systemd/system/cloud-config.service
+sed -i 's:/usr/bin/cloud-init:/opt/ibm-cloud/cloud-init/bin/cloud-init:g' /usr/lib/systemd/system/cloud-final.service
+systemctl enable cloud-init-local.service
+systemctl enable cloud-init.service
+systemctl enable cloud-config.service
+systemctl enable cloud-final.service
+systemctl enable xe-linux-distribution.service
+yum -y erase python.pip
+rpm -qa |grep epel
+yum erase epel-release
+rpm -qa |grep epel
+yum clean all
+rm /etc/yum.repos.d/CentOS-Base.repo
+mv /etc/yum.repos.d/CentOS-Base.repo.prod /etc/yum.repos.d/CentOS-Base.repo
+vi /etc/ssh/sshd_config
+cd /root
+rm reboot
+ls
+rm cloud-init.tar.gz
+y
+ls
+rm anaconda-ks.cfg 
+ls
+systemctl disable osupdate.service
+rm -f /etc/systemd/system/osupdate.service
+ls
+rm osupdate.sh
+rm /etc/sysconfig/hwconf
+rm -f /etc/ssh/*key*
+rm -f /etc/resolv.conf
+ls
+rm epel-release-latest-7.noarch.rpm 
+ls
+rm install_functions.sh 
+ls
+shutdown -h now
+vi .bash_profile
+ls -la
+mkdir .ssh/
+cd .ssh
+ls -la
+cd ..
+exit
+ls -la
+cd .ssh/
+ls -la
+chmod 600 /root/.ssh/id_rsa
+ls -la
+cd ..
+cd /etc/hosts
+vi /etc/hosts
+vi /root/nodefile
+yum install -y kernel-devel g++ gcc cpp kernel-headers gcc-c++ 
+vi /private/etc/hosts
+sudo /private/etc/hosts
+sudo vi /private/etc/hosts
+vi /etc/cloud/cloud.cfg
+yum update
+reboot
